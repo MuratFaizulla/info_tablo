@@ -1,0 +1,94 @@
+.container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* max-width: 600px; */
+  margin: auto;
+}
+
+.heading {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: auto;
+  /* margin-bottom: -50px; */
+}
+
+.scrollableList {
+  max-height: 900px;
+  overflow-y: auto;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.listItem:hover {
+  background-color: #f0f0f0;
+}
+
+.userName {
+  font-size: 20px;
+  font-weight: bold;
+  color: #555;
+}
+
+.className {
+  font-size: 20px;
+  color: #777;
+  margin-left: 20px;
+margin-right: 20px;
+}
+
+.birthDate {
+  font-size: 20px;
+  color: #999;
+  margin-left: auto; /* Отодвигает к правому краю */
+}
+
+.age {
+  font-size: 20px;
+  color: #666;
+  margin-left: 10px;
+}
+
+.daysLeft {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.today {
+  color: #d9534f; /* Красный цвет для "Сегодня день рождения!" */
+  font-weight: bold;
+}
+
+img {
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}

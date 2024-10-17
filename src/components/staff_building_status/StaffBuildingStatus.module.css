@@ -1,0 +1,69 @@
+.eventStudContainer {
+  /* max-width: 400px; */
+  margin: 0 auto;
+}
+
+.tableContainer {
+  height: 1900px; /* Задайте фиксированную высоту для контейнера таблицы */
+  overflow-y: auto;  
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f4f4f4;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  font-size: 24px;
+  border: 1px solid #ac9999;
+}
+
+
+.statistics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Три колонки */
+  grid-template-rows: auto auto;         /* Две строки */
+  gap: 20px;                             /* Отступы между элементами */
+}
+
+.statisticItem:nth-child(1) {
+  grid-column: 1 / span 3; /* Первый элемент занимает все три колонки */
+}
+
+.statisticItem {
+  /* background-color: #f0f0f0;
+  padding: 20px; */
+  border-radius: 8px;
+  text-align: center;
+}
+
+.statisticItem h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.statisticItem h3 {
+  margin: 0;
+  font-size: 24px;
+
+}
+th, td {
+  padding: 15px; /* Увеличим отступы */
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Граница между строками */
+}
+th {
+  background-color: #607D8B; /* Зеленый фон для заголовков */
+  color: white; /* Белый цвет текста заголовков */
+  font-weight: bold; /* Жирный шрифт для заголовков */
+}
+
+tbody tr {
+  transition: background-color 0.2s; /* Плавный переход для фона строк */
+}

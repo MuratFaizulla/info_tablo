@@ -1,0 +1,24 @@
+.event-list-container {
+    max-width: 100%;
+    margin: 0 auto;
+ }
+  
+  .table-container {
+    max-height: 1000px; /* Ограничиваем высоту контейнера */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f4f4f4;  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    /* padding: 10px; */
+    text-align: left;
+  }
+  

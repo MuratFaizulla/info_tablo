@@ -1,0 +1,26 @@
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    margin-right: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow-y: auto; /* Полоса прокрутки */
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+
+
+  .table-container {
+    max-height: 900px;
+    overflow-y: auto; /* Вертикальная полоса прокрутки */
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
