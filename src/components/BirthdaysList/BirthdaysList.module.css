@@ -1,14 +1,12 @@
 .container {
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* max-width: 600px; */
   margin: auto;
 }
 
 .heading {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: bold;
   color: #333;
   text-align: center;
@@ -17,7 +15,7 @@
 }
 
 .scrollableList {
-  max-height: 900px;
+  max-height: 480px;
   overflow-y: auto;
 }
 
@@ -32,42 +30,40 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
   transition: background-color 0.3s;
 }
 
-.listItem:hover {
-  background-color: #f0f0f0;
-}
+
 
 .userName {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   color: #555;
 }
 
 .className {
-  font-size: 20px;
+  font-size: 14px;
   color: #777;
   margin-left: 20px;
 margin-right: 20px;
 }
 
 .birthDate {
-  font-size: 20px;
+  font-size: 14px;
   color: #999;
   margin-left: auto; /* Отодвигает к правому краю */
 }
 
 .age {
-  font-size: 20px;
+  font-size: 14px;
   color: #666;
   margin-left: 10px;
 }
 
 .daysLeft {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   margin-left: 10px;
 }
@@ -91,4 +87,56 @@ img {
   align-items: center;
   justify-content: center;
   margin-right: 15px;
+}
+
+/* Адаптация для планшетов с разрешением 768px */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 8px;
+  }
+
+  .heading {
+    font-size: 18px; /* Уменьшаем заголовок */
+    margin-bottom: 10px; /* Добавляем немного отступа снизу */
+  }
+
+  .scrollableList {
+    max-height: 300px; /* Уменьшаем максимальную высоту прокручиваемого списка */
+    overflow-y: auto;
+  }
+
+  .listItem {
+    flex-direction: column; /* Размещаем элементы по вертикали для компактности */
+    align-items: flex-start;
+    padding: 8px;
+    margin-bottom: 8px; /* Увеличиваем отступы между элементами */
+  }
+
+  img {
+    width: 80px; /* Уменьшаем размер изображений */
+    height: 80px;
+    margin-bottom: 10px; /* Добавляем отступ снизу */
+  }
+
+  .userName, .className, .birthDate, .age, .daysLeft {
+    font-size: 12px; /* Уменьшаем размер текста */
+  }
+
+  .userName {
+    margin-bottom: 5px;
+  }
+
+  .className, .birthDate, .age, .daysLeft {
+    margin-left: 0; /* Убираем отступы слева */
+  }
+
+  .daysLeft {
+    margin-top: 5px; /* Добавляем отступ сверху для разделения текста */
+  }
+
+  .placeholder {
+    width: 80px; /* Уменьшаем размер заглушки для изображения */
+    height: 80px;
+    margin-bottom: 10px; /* Добавляем отступ снизу */
+  }
 }

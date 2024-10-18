@@ -4,7 +4,7 @@
  }
   
   .table-container {
-    max-height: 1000px; /* Ограничиваем высоту контейнера */
+    max-height: 450px; /* Ограничиваем высоту контейнера */
     overflow-y: auto; /* Добавляем вертикальную прокрутку */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     border: 1px solid #ddd;
@@ -12,13 +12,51 @@
     scrollbar-width: thin;
     scrollbar-color: #888 #f4f4f4;  }
   
+
+/* Адаптация для планшетов с разрешением 768px */
+@media screen and (max-width: 768px) {
+  .event-list-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .table-container {
+    max-height: 300px; /* Уменьшаем максимальную высоту таблицы на планшетах */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f4f4f4;
+  }
+
   table {
     width: 100%;
-    border-collapse: collapse;
+    font-size: 12px; /* Уменьшаем размер шрифта для лучшего восприятия на маленьких экранах */
   }
-  
+
   th, td {
-    /* padding: 10px; */
+    padding: 3px; /* Уменьшаем отступы в ячейках */
     text-align: left;
   }
-  
+
+  thead th {
+    font-size: 12px; /* Уменьшаем размер шрифта заголовков */
+  }
+
+  tbody td {
+    font-size: 11px; /* Ещё меньше шрифт для тела таблицы */
+  }
+
+  tbody tr {
+    transition: background-color 0.2s; /* Плавный переход для строк */
+  }
+
+  /* Уменьшаем ширину и прячем менее важные столбцы на планшетах */
+  th:nth-child(3), td:nth-child(3), /* ID Рег. */
+  th:nth-child(7), td:nth-child(7) { /* Подразделения */
+    display: none; /* Прячем эти столбцы для экономии места */
+  }
+
+  /* Подправляем заголовок */
+  h1 {
+    font-size: 18px; /* Уменьшаем размер заголовка */
+  }
+}

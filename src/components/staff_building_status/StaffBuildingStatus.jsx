@@ -24,7 +24,7 @@ const StaffBuildingStatus = () => {
 
   return (
     <div className={styles.eventStudContainer}>
-      <h1 style={{ fontSize: '36px', textAlign: 'center' }}>Статистика событий студентов</h1>
+      <h1 style={{ fontSize: '24px', textAlign: 'center' }}>Статистика событий студентов</h1>
       <div className={styles.statistics}>
         <div className={styles.statisticItem}>
           <h2>Всего</h2>

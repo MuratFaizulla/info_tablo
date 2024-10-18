@@ -10,17 +10,56 @@
     margin-top: 20px;
     overflow-y: auto; /* Полоса прокрутки */
   }
-  
-  th, td {
-    padding: 12px 15px;
-    text-align: left;
-  }
+
 
 
   .table-container {
-    max-height: 900px;
+    max-height: 460px;
     overflow-y: auto; /* Вертикальная полоса прокрутки */
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+
+  /* Адаптация для планшетов с разрешением 768px */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .table-container {
+    max-height: 300px; /* Уменьшаем максимальную высоту для планшетов */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f4f4f4;
+  }
+
+  table {
+    width: 100%;
+    font-size: 12px; /* Уменьшаем размер шрифта */
+  }
+
+  th, td {
+    padding: 3px; /* Уменьшаем отступы внутри ячеек */
+    text-align: left;
+  }
+
+  thead th {
+    font-size: 12px; /* Уменьшаем шрифт заголовков таблицы */
+  }
+
+  tbody td {
+    font-size: 11px; /* Уменьшаем размер текста внутри таблицы */
+  }
+
+  /* Прячем менее важные столбцы на планшетах */
+  th:nth-child(2), td:nth-child(2) { /* Подразделения */
+    display: none; /* Прячем столбец с подразделениями для экономии места */
+  }
+
+  /* Уменьшаем размер заголовка */
+  h2 {
+    font-size: 18px; /* Уменьшаем заголовок таблицы */
+  }
+}

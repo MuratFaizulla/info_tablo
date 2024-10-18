@@ -35,7 +35,7 @@ const Latecomers = () => {
 
   return (
     <div className={styles.container}>
-      <h2 style={{ textAlign: 'center', fontSize: '36px' }}>Опоздавшие ученики</h2>
+      <h2 style={{ textAlign: 'center', fontSize: '24px' }}>Опоздавшие ученики</h2>
       <div className={styles["table-container"]}>
         <table className={styles.table}>
           <thead>

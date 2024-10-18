@@ -17,7 +17,7 @@ const EventList = () => {
 
   return (
     <div className="event-list-container">
-      <h1 style={{ textAlign: 'center', fontSize: '36px' }}>
+      <h1 style={{ textAlign: 'center', fontSize: '24px' }}>
         Статистика входов и выходов (последние 100 записей)
       </h1>      
       {isLoading && <p>Загрузка...</p>}

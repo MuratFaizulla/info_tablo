@@ -47,8 +47,8 @@ const BirthdaysList = () => {
                     src={`data:image/jpeg;base64,${user.PORTRET}`}
                     alt={`Портрет сотрудника ${user.STAFF_ID}`}
                     style={{
-                      width: "100px",
-                      height: "100px",
+                      width: "80px",
+                      height: "80px",
                       objectFit: "cover",
                     }}
                   />
