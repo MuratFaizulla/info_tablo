@@ -33,9 +33,16 @@ const Latecomers = () => {
     return <div>Ошибка загрузки данных</div>;
   }
 
+  // Сортируем данные по FIRST_ENTRY
+  const sortedLatecomers = [...latecomers].sort((a, b) => {
+    const dateA = new Date(a.FIRST_ENTRY);
+    const dateB = new Date(b.FIRST_ENTRY);
+    return dateA - dateB; // Для сортировки по возрастанию
+  });
+
   return (
     <div className={styles.container}>
-      <h2 style={{ textAlign: 'center', fontSize: '24px' }}>Опоздавшие ученики</h2>
+      <h2 style={{ textAlign: "center", fontSize: "24px" }}>Опоздавшие ученики</h2>
       <div className={styles["table-container"]}>
         <table className={styles.table}>
           <thead>
@@ -47,7 +54,7 @@ const Latecomers = () => {
             </tr>
           </thead>
           <tbody>
-            {latecomers.map((person, index) => (
+            {sortedLatecomers.map((person, index) => (
               <tr key={index}>
                 <td>{person.FULL_FIO}</td>
                 {/* <td>{person.TABEL_ID}</td> */}
