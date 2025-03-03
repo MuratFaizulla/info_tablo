@@ -63,3 +63,58 @@
     font-size: 18px; /* Уменьшаем заголовок таблицы */
   }
 }
+
+
+.container {
+  /* max-width: 800px; */
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.housesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.houseCard {
+  background: white;
+  /* padding: 15px; */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+
+.houseTitle {
+  font-size: 18px;
+  font-weight: bold;
+  /* color: #007bff; */
+}
+
+.count {
+  font-size: 14px;
+  /* color: #dc3545; */
+  /* font-weight: bold; */
+}
+
+/* .tableContainer {
+  margin-top: 10px;
+}
+ */
