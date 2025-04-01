@@ -1,120 +1,20 @@
 .container {
-    max-width: 100%;
-    margin: 0 auto;
-    margin-right: auto;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    overflow-y: auto; /* Полоса прокрутки */
-  }
-
-
-
-  .table-container {
-    max-height: 460px;
-    overflow-y: auto; /* Вертикальная полоса прокрутки */
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-
-  /* Адаптация для планшетов с разрешением 768px */
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 10px;
-    width: 100%;
-  }
-
-  .table-container {
-    max-height: 300px; /* Уменьшаем максимальную высоту для планшетов */
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f4f4f4;
-  }
-
-  table {
-    width: 100%;
-    font-size: 12px; /* Уменьшаем размер шрифта */
-  }
-
-  th, td {
-    padding: 3px; /* Уменьшаем отступы внутри ячеек */
-    text-align: left;
-  }
-
-  thead th {
-    font-size: 12px; /* Уменьшаем шрифт заголовков таблицы */
-  }
-
-  tbody td {
-    font-size: 11px; /* Уменьшаем размер текста внутри таблицы */
-  }
-
-  /* Прячем менее важные столбцы на планшетах */
-  th:nth-child(2), td:nth-child(2) { /* Подразделения */
-    display: none; /* Прячем столбец с подразделениями для экономии места */
-  }
-
-  /* Уменьшаем размер заголовка */
-  h2 {
-    font-size: 18px; /* Уменьшаем заголовок таблицы */
-  }
-}
-
-
-.container {
-  /* max-width: 800px; */
-  margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
-  border-radius: 10px;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
+
+.chartContainer {
+  margin-top: 50px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 .title {
-  text-align: center;
   font-size: 24px;
   font-weight: bold;
   color: #333;
-  margin-bottom: 20px;
-}
-
-.housesContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-}
-
-.houseCard {
-  background: white;
-  /* padding: 15px; */
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  width: 300px;
   text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  margin: auto;
+  /* margin-bottom: -50px; */
 }
-
-
-
-.houseTitle {
-  font-size: 18px;
-  font-weight: bold;
-  /* color: #007bff; */
-}
-
-.count {
-  font-size: 14px;
-  /* color: #dc3545; */
-  /* font-weight: bold; */
-}
-
-/* .tableContainer {
-  margin-top: 10px;
-}
- */
