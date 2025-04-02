@@ -122,7 +122,7 @@ const Latecomers = () => {
             plugins: {
               title: {
                 display: true,
-                text: "Опоздавшие на 4 четверть",
+                // text: "Опоздавшие на 4 четверть",
               },
               tooltip: {
                 enabled: false, // Отключаем тултипы
