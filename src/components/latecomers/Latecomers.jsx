@@ -11,10 +11,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels"; // Импорт плагина
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import styles from "./Latecomers.module.css";
 
-// Регистрация плагинов
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -57,101 +56,70 @@ const getHouseName = (className) => {
 
 const Latecomers = () => {
   const {
-    data: latecomers,
+    data: latecomers = [],
     isLoading,
     error,
   } = useQuery("latecomers", fetchLatecomers, {
     refetchInterval: 60000,
   });
 
-  if (isLoading) {
-    return <div className={styles.loading}>Загрузка...</div>;
-  }
+  if (isLoading) return <div className={styles.loading}>Загрузка...</div>;
+  if (error) return <div className={styles.error}>Ошибка загрузки данных</div>;
 
-  if (error) {
-    return <div className={styles.error}>Ошибка загрузки данных</div>;
-  }
-
+  // 1. Обогащаем данные информацией о шаңырақе
   const enrichedLatecomers = latecomers.map((person) => ({
     ...person,
     HOUSE_NAME: getHouseName(person.CLASS_NAME),
   }));
 
-  // Группировка по шаңыракам
-  const groupedByHouse = Object.keys(houseNames).reduce((acc, house) => {
-    acc[house] = 0; // инициализация счетчика
+  // 2. Группируем по шаңырақам и СУММИРУЕМ LATE_COUNT
+  const groupedByHouse = enrichedLatecomers.reduce((acc, person) => {
+    const house = person.HOUSE_NAME;
+    if (!acc[house]) acc[house] = 0;
+    acc[house] += person.LATE_COUNT || 0; // Суммируем опоздания
     return acc;
   }, {});
 
-  // Считаем количество опоздавших по каждому шаңыраку
-  enrichedLatecomers.forEach((person) => {
-    groupedByHouse[person.HOUSE_NAME]++;
+  // 3. Добавляем шаңырақи с нулевыми значениями
+  Object.keys(houseNames).forEach(house => {
+    if (!groupedByHouse[house]) groupedByHouse[house] = 0;
   });
 
-  // Сортировка по количеству опоздавших (по убыванию)
-  const sortedGroupedByHouse = Object.entries(groupedByHouse)
-    .sort((a, b) => b[1] - a[1]) // Сортируем по значению (количеству)
-    .reduce((acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    }, {});
+  // 4. Сортируем по убыванию количества опозданий
+  const sortedEntries = Object.entries(groupedByHouse)
+    .sort((a, b) => b[1] - a[1]);
 
-  // Данные для графика
   const chartData = {
-    labels: Object.keys(sortedGroupedByHouse), // Названия шаңыраков
+    labels: sortedEntries.map(([house]) => house),
     datasets: [
       {
-        label: "Опоздавшие",
-        data: Object.values(sortedGroupedByHouse), // Количество опоздавших
-        backgroundColor: "#607D8B", // Синий
+        label: "Суммарное количество опозданий",
+        data: sortedEntries.map(([_, count]) => count),
+        backgroundColor: "#607D8B",
         borderColor: "rgba(54, 162, 235, 1)",
-        hoverBackgroundColor: "rgba(54, 162, 235, 1)",
-        hoverBorderColor: "rgba(54, 162, 235, 1)",
+        borderRadius: 4,
       },
     ],
   };
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Статистика опозданий по шаңырақам</h2>
+      <h2 className={styles.title}>Суммарное количество опозданий по шаңырақам</h2>
       <div className={styles.chartContainer}>
         <Bar
           data={chartData}
           options={{
             responsive: true,
             plugins: {
-              title: {
-                display: true,
-                // text: "Опоздавшие на 4 четверть",
-              },
-              tooltip: {
-                enabled: false, // Отключаем тултипы
-              },
               datalabels: {
-                display: true,
-                color: "white", // Цвет текста на столбцах
-                font: {
-                  weight: "bold",
-                  size: 14,
-                },
-                formatter: (value) => `${value} `, // Форматируем данные на столбцах
+                color: "white",
+                font: { weight: "bold", size: 14 },
+                formatter: (value) => value > 0 ? value : "",
               },
             },
             scales: {
-              y: {
-                beginAtZero: true,
-                grid: {
-                  display: false, // Убираем сетку по оси Y
-                },
-                ticks: {
-                  display: false, // Убираем цифры на оси Y
-                },
-              },
-              x: {
-                grid: {
-                  display: false, // Убираем сетку по оси X
-                },
-              },
+              y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+              x: { grid: { display: false } },
             },
           }}
         />
@@ -159,6 +127,5 @@ const Latecomers = () => {
     </div>
   );
 };
-
 
 export default Latecomers;
