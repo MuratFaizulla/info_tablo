@@ -17,10 +17,23 @@ const StaffBuildingStatus = () => {
   if (isLoading) return <div>Загрузка...</div>;
   if (isError) return <div>Ошибка загрузки данных: {error.message}</div>;
 
+  // Считаем общую статистику
   const totalStaff = data.reduce((sum, item) => sum + item.TOTAL_STAFF, 0);
   const inBuilding = data.reduce((sum, item) => sum + item.IN_BUILDING, 0);
   const outOfBuilding = data.reduce((sum, item) => sum + item.OUT_OF_BUILDING, 0);
   const notArrived = data.reduce((sum, item) => sum + item.NOT_ARRIVED, 0);
+
+  // Сортируем данные по номеру и букве класса
+  const sortedData = [...data].sort((a, b) => {
+    const numA = parseInt(a.CLASS_NAME, 10);
+    const numB = parseInt(b.CLASS_NAME, 10);
+
+    if (numA === numB) {
+      return a.CLASS_NAME.localeCompare(b.CLASS_NAME);
+    }
+
+    return numA - numB;
+  });
 
   return (
     <div className={styles.eventStudContainer}>
@@ -56,7 +69,7 @@ const StaffBuildingStatus = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {sortedData.map((item) => (
               <tr key={item.CLASS_NAME}>
                 <td>{item.CLASS_NAME}</td>
                 <td>{item.TOTAL_STAFF}</td>
