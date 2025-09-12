@@ -11,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels"; 
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import styles from "./Latecomers.module.css";
 
 // Регистрация плагинов
@@ -39,7 +39,7 @@ const houseNames = {
   Хантағы: ["9A", "9L", "11B", "11A"],
   Мұзтау: ["7A", "9M", "10C", "11C"],
   Тұран: ["7B", "9D", "10A", "10K"],
-  Алаш: ["7C", "8C","8F", "11L", "11K"],
+  Алаш: ["7C", "8C", "8F", "11L", "11K"],
   Отырар: ["7D", "9B", "9K", "10B"],
   Оқжетпес: ["7N", "9N", "11E", "11E"],
   Фараб: ["8L", "8D", "11M", "12K"],
@@ -77,20 +77,20 @@ const Latecomers = () => {
       ...person,
       HOUSE_NAME: getHouseName(person.CLASS_NAME),
     }))
-    .filter((person) => person.HOUSE_NAME); // убираем "Неизвестный шаңырақ"
+    .filter((person) => person.HOUSE_NAME);
 
-  // Группировка по шаңыракам
+  // Инициализация счетчика
   const groupedByHouse = Object.keys(houseNames).reduce((acc, house) => {
     acc[house] = 0;
     return acc;
   }, {});
 
-  // Считаем количество опоздавших
+  // Суммируем количество опозданий по каждому шаңыраку
   enrichedLatecomers.forEach((person) => {
-    groupedByHouse[person.HOUSE_NAME]++;
+    groupedByHouse[person.HOUSE_NAME] += person.LATE_COUNT;
   });
 
-  // Сортировка по количеству
+  // Сортировка по количеству опозданий
   const sortedGroupedByHouse = Object.entries(groupedByHouse)
     .sort((a, b) => b[1] - a[1])
     .reduce((acc, [key, value]) => {
@@ -102,7 +102,7 @@ const Latecomers = () => {
     labels: Object.keys(sortedGroupedByHouse),
     datasets: [
       {
-        label: "Опоздавшие",
+        label: "Количество опозданий",
         data: Object.values(sortedGroupedByHouse),
         backgroundColor: "#607D8B",
         borderColor: "rgba(54, 162, 235, 1)",
