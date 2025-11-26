@@ -68,7 +68,7 @@ const BirthdaysList = () => {
                     className={`${styles.daysLeft} ${
                       user.daysUntilBirthday === 0 ? styles.today : ""
                     }`}
-                  >
+                  ><br/>
                     {user.daysUntilBirthday === 0
                       ? "Сегодня день рождения! Поздравляем!"
                       : `${user.daysUntilBirthday} дней осталось`}
