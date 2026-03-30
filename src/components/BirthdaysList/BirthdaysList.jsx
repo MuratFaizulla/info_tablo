@@ -2,82 +2,71 @@ import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { getUpcomingBirthdays } from "../../utils/utils";
-import styles from "./BirthdaysList.module.css"; // Импортируем стили
+import styles from "./BirthdaysList.module.css";
 
-// Функция для запроса данных о днях рождения
 const fetchBirthdays = async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/birthday`);
   return data;
 };
 
+const calculateAge = (birthDate) => {
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const had = today.getMonth() > birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+  return had ? age : age - 1;
+};
+
 const BirthdaysList = () => {
-  // Используем React Query для загрузки данных
-  const { data: users, isLoading, error } = useQuery("birthdays", fetchBirthdays, {});
+  const { data: users, isLoading, error } = useQuery("birthdays", fetchBirthdays);
 
-  if (isLoading) return <div>Загрузка...</div>;
-  if (error) return <div>Ошибка при загрузке данных: {error.message}</div>;
+  if (isLoading) return <div className={styles.loading}><span className={styles.spinner} /></div>;
+  if (error) return <div className={styles.error}>Ошибка загрузки</div>;
 
-  const upcomingBirthdays = getUpcomingBirthdays(users);
-
-  const calculateAge = (birthDate) => {
-    const today = new Date();
-    const age = today.getFullYear() - birthDate.getFullYear();
-
-    const hasHadBirthdayThisYear =
-      today.getMonth() > birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() &&
-        today.getDate() >= birthDate.getDate());
-
-    return hasHadBirthdayThisYear ? age : age - 1;
-  };
+  const upcoming = getUpcomingBirthdays(users);
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.heading}>Ближайшие дни рождения</h1>
-      <div className={styles.scrollableList}>
-        <ul className={styles.list}>
-          {upcomingBirthdays.map((user, index) => {
-            const birthDate = new Date(user.birthDate);
-            const age = calculateAge(birthDate) + 1;
+      <div className={styles.panelTitle}>
+        <span className={styles.dot} />
+        Ближайшие дни рождения
+      </div>
 
-            return (
-              <li key={user.ID_STAFF || index} className={styles.listItem}>
+      <div className={styles.list}>
+        {upcoming.map((user, index) => {
+          const birthDate = new Date(user.birthDate);
+          const age = calculateAge(birthDate);
+          const isToday = user.daysUntilBirthday === 0;
+
+          return (
+            <div key={user.ID_STAFF || index} className={`${styles.item} ${isToday ? styles.itemToday : ''}`}>
+              <div className={styles.avatar}>
                 {user.PORTRET ? (
-                  <img
-                    src={`data:image/jpeg;base64,${user.PORTRET}`}
-                    alt={`Портрет сотрудника ${user.STAFF_ID}`}
-                    style={{
-                      width: "80px",
-                      height: "80px",
-                      objectFit: "cover",
-                    }}
-                  />
+                  <img src={`data:image/jpeg;base64,${user.PORTRET}`} alt={user.FULL_FIO} className={styles.avatarImg} />
                 ) : (
-                  <div className={styles.placeholder}>
-                    <p>Портрет отсутствует</p>
-                  </div>
+                  <div className={styles.avatarPlaceholder}>{user.FULL_FIO ? user.FULL_FIO[0] : '?'}</div>
                 )}
-                <div>
-                  <span className={styles.userName}>{user.FULL_FIO}</span>
-                  <span className={styles.className}>({user.CLASS_NAME})</span>
-                  <span className={styles.birthDate}>
-                    {birthDate.toLocaleDateString()}
-                  </span>
-                  <span className={styles.age}>{age - 1} год(а)</span>
-                  <span
-                    className={`${styles.daysLeft} ${
-                      user.daysUntilBirthday === 0 ? styles.today : ""
-                    }`}
-                  ><br/>
-                    {user.daysUntilBirthday === 0
-                      ? "Сегодня день рождения! Поздравляем!"
-                      : `${user.daysUntilBirthday} дней осталось`}
-                  </span>
+                {isToday && <span className={styles.todayBadge}>🎂</span>}
+              </div>
+
+              <div className={styles.info}>
+                <div className={styles.name}>{user.FULL_FIO}</div>
+                <div className={styles.meta}>
+                  <span className={styles.className}>{user.CLASS_NAME}</span>
+                  <span className={styles.sep}>·</span>
+                  <span className={styles.ageBirth}>{age} лет · {birthDate.toLocaleDateString('ru-RU')}</span>
                 </div>
-              </li>
-            );
-          })}
-        </ul>
+              </div>
+
+              <div className={styles.daysWrap}>
+                {isToday
+                  ? <span className={styles.todayTag}>Сегодня!</span>
+                  : <span className={styles.daysTag}>{user.daysUntilBirthday}д</span>
+                }
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

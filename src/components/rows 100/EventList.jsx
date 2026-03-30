@@ -1,60 +1,73 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import './EventList.css'; // Добавим стили для таблицы
+import styles from './EventList.module.css';
 
-// Функция для получения данных
 const fetchEvents = async () => {
   const response = await axios.get(`${process.env.REACT_APP_API_URL}/rows100`);
   return response.data;
 };
 
 const EventList = () => {
-  // Используем useQuery для получения данных
   const { data: events, isLoading, isError } = useQuery('eventsData', fetchEvents, {
-    refetchInterval: 2000, // Запрашиваем данные каждые 2 секунды
+    refetchInterval: 2000,
   });
 
   return (
-    <div className="event-list-container">
-      <h1 style={{ textAlign: 'center', fontSize: '24px' }}>
-        Статистика входов и выходов (последние 100 записей)
-      </h1>      
-      {isLoading && <p>Загрузка...</p>}
-      {isError && <p>Ошибка: {isError.message}</p>}
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.panelTitle}>
+          <span className={styles.dotLive} />
+          Статистика входов и выходов
+          <span className={styles.badge}>последние 100 записей</span>
+        </div>
+      </div>
 
-      <div className="table-container">
-        <table>
+      {isLoading && <div className={styles.loading}><span className={styles.spinner} /> Загрузка...</div>}
+      {isError && <div className={styles.error}>Ошибка загрузки</div>}
+
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
           <thead>
             <tr>
-              <th>№</th>
+              <th className={styles.thNum}>№</th>
               <th>ФИО</th>
-              {/* <th>ИИН</th> */}
               <th>ID Рег.</th>
               <th>Дата</th>
               <th>Время</th>
-              <th>Вход/Выход</th>
-              <th>Подразделения</th>
+              <th>Событие</th>
+              <th>Подразделение</th>
             </tr>
           </thead>
           <tbody>
             {events && events.length > 0 ? (
               events.map((event, index) => (
                 <tr key={event.ID_REG || index}>
-                  <td>{index + 1}</td>
-                  <td>{event.FULL_FIO}</td>
-                  {/* <td>{event.TABEL_ID}</td> */}
-                  <td>{event.ID_REG}</td>
-                  <td>{new Date(event.DATE_EV).toLocaleDateString()}</td>
-                  <td>{new Date(event.TIME_EV).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</td>
-                  <td>{event.ENTRY_EXIT}</td>
-                  <td>{event.CLASS_NAME}</td>
+                  <td className={styles.tdNum}>{index + 1}</td>
+                  <td className={styles.tdName}>{event.FULL_FIO}</td>
+                  <td className={styles.tdId}>{event.ID_REG}</td>
+                  <td>{new Date(event.DATE_EV).toLocaleDateString('ru-RU')}</td>
+                  <td className={styles.tdTime}>
+                    {new Date(event.TIME_EV).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                  </td>
+                  <td>
+                    <span
+                      className={
+                        event.ENTRY_EXIT?.trim().toLowerCase() === 'выход'
+                          ? styles.tagExit
+                          : styles.tagEntry
+                      }
+                    >
+                      {event.ENTRY_EXIT?.trim().toLowerCase() === 'выход'
+                        ? '↑ Выход'
+                        : '↓ Вход'}
+                    </span>
+                  </td>
+                  <td className={styles.tdDept}>{event.CLASS_NAME}</td>
                 </tr>
               ))
             ) : (
-              <tr>
-                <td colSpan="8">Нет данных для отображения</td>
-              </tr>
+              !isLoading && <tr><td colSpan="7" className={styles.empty}>Нет данных</td></tr>
             )}
           </tbody>
         </table>

@@ -3,79 +3,80 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import styles from './StaffBuildingStatus.module.css';
 
-// Функция для получения данных
 const fetchData = async () => {
   const response = await axios.get(`${process.env.REACT_APP_API_URL}/count_stud`);
   return response.data;
 };
 
 const StaffBuildingStatus = () => {
-  const { data, isLoading, isError, error } = useQuery('staffData', fetchData, {
-    refetchInterval: 2000, // Обновление каждые 2 секунды
-  });
+  const { data, isLoading, isError, error } = useQuery('staffData', fetchData, { refetchInterval: 2000 });
 
-  if (isLoading) return <div>Загрузка...</div>;
-  if (isError) return <div>Ошибка загрузки данных: {error.message}</div>;
+  if (isLoading) return <div className={styles.loading}><span className={styles.spinner} /> Загрузка...</div>;
+  if (isError)   return <div className={styles.error}>Ошибка: {error.message}</div>;
 
-  // Считаем общую статистику
-  const totalStaff = data.reduce((sum, item) => sum + item.TOTAL_STAFF, 0);
-  const inBuilding = data.reduce((sum, item) => sum + item.IN_BUILDING, 0);
-  const outOfBuilding = data.reduce((sum, item) => sum + item.OUT_OF_BUILDING, 0);
-  const notArrived = data.reduce((sum, item) => sum + item.NOT_ARRIVED, 0);
+  const totalStaff    = data.reduce((s, i) => s + i.TOTAL_STAFF, 0);
+  const inBuilding    = data.reduce((s, i) => s + i.IN_BUILDING, 0);
+  const outOfBuilding = data.reduce((s, i) => s + i.OUT_OF_BUILDING, 0);
+  const notArrived    = data.reduce((s, i) => s + i.NOT_ARRIVED, 0);
+  const pct = totalStaff ? Math.round((inBuilding / totalStaff) * 100) : 0;
 
-  // Сортируем данные по номеру и букве класса
   const sortedData = [...data].sort((a, b) => {
-    const numA = parseInt(a.CLASS_NAME, 10);
-    const numB = parseInt(b.CLASS_NAME, 10);
-
-    if (numA === numB) {
-      return a.CLASS_NAME.localeCompare(b.CLASS_NAME);
-    }
-
-    return numA - numB;
+    const nA = parseInt(a.CLASS_NAME, 10), nB = parseInt(b.CLASS_NAME, 10);
+    return nA === nB ? a.CLASS_NAME.localeCompare(b.CLASS_NAME) : nA - nB;
   });
 
   return (
-    <div className={styles.eventStudContainer}>
-      <h1 style={{ fontSize: '24px', textAlign: 'center' }}>Статистика событий студентов</h1>
-      <div className={styles.statistics}>
-        <div className={styles.statisticItem}>
-          <h2>Всего</h2>
-          <h3>{totalStaff}</h3>
+    <div className={styles.container}>
+      <div className={styles.panelTitle}>
+        <span className={styles.dot} />
+        Статистика учеников
+      </div>
+
+      <div className={styles.cards}>
+        <div className={`${styles.card} ${styles.cardTotal}`}>
+          <div className={styles.cardLabel}>Всего</div>
+          <div className={styles.cardValue}>{totalStaff}</div>
         </div>
-        <div className={styles.statisticItem}>
-          <h2>В здании</h2>
-          <h3>{inBuilding}</h3>
+        <div className={`${styles.card} ${styles.cardIn}`}>
+          <div className={styles.cardLabel}>В здании</div>
+          <div className={styles.cardValue}>{inBuilding}</div>
         </div>
-        <div className={styles.statisticItem}>
-          <h2>Не в здании</h2>
-          <h3>{outOfBuilding}</h3>
+        <div className={`${styles.card} ${styles.cardOut}`}>
+          <div className={styles.cardLabel}>Вышли</div>
+          <div className={styles.cardValue}>{outOfBuilding}</div>
         </div>
-        <div className={styles.statisticItem}>
-          <h2>Не пришли</h2>
-          <h3>{notArrived}</h3>
+        <div className={`${styles.card} ${styles.cardNot}`}>
+          <div className={styles.cardLabel}>Не пришли</div>
+          <div className={styles.cardValue}>{notArrived}</div>
         </div>
       </div>
 
-      <div className={styles.tableContainer}>
-        <table>
+      <div className={styles.progressWrap}>
+        <div className={styles.progressBar}>
+          <div className={styles.progressFill} style={{ width: `${pct}%` }} />
+        </div>
+        <span className={styles.progressLabel}>{pct}% в здании</span>
+      </div>
+
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Класс</th>
               <th>Всего</th>
-              <th>В здании</th>
-              <th>На выходе</th>
-              <th>Не пришли</th>
+              <th>В зд.</th>
+              <th>Вышли</th>
+              <th>Нет</th>
             </tr>
           </thead>
           <tbody>
             {sortedData.map((item) => (
-              <tr key={item.CLASS_NAME}>
-                <td>{item.CLASS_NAME}</td>
+              <tr key={item.CLASS_NAME} className={item.NOT_ARRIVED > 0 ? styles.rowWarn : ''}>
+                <td className={styles.className}>{item.CLASS_NAME}</td>
                 <td>{item.TOTAL_STAFF}</td>
-                <td>{item.IN_BUILDING}</td>
+                <td className={styles.tdIn}>{item.IN_BUILDING}</td>
                 <td>{item.OUT_OF_BUILDING}</td>
-                <td>{item.NOT_ARRIVED}</td>
+                <td className={item.NOT_ARRIVED > 0 ? styles.tdNot : ''}>{item.NOT_ARRIVED}</td>
               </tr>
             ))}
           </tbody>
