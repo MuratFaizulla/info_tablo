@@ -32,8 +32,8 @@ const EventList = () => {
             <tr>
               <th className={styles.thNum}>№</th>
               <th>ФИО</th>
-              <th>ID Рег.</th>
-              <th>Дата</th>
+              {/* <th>ID Рег.</th>
+              <th>Дата</th> */}
               <th>Время</th>
               <th>Событие</th>
               <th>Подразделение</th>
@@ -45,8 +45,8 @@ const EventList = () => {
                 <tr key={event.ID_REG || index}>
                   <td className={styles.tdNum}>{index + 1}</td>
                   <td className={styles.tdName}>{event.FULL_FIO}</td>
-                  <td className={styles.tdId}>{event.ID_REG}</td>
-                  <td>{new Date(event.DATE_EV).toLocaleDateString('ru-RU')}</td>
+                  {/* <td className={styles.tdId}>{event.ID_REG}</td>
+                  <td>{new Date(event.DATE_EV).toLocaleDateString('ru-RU')}</td> */}
                   <td className={styles.tdTime}>
                     {new Date(event.TIME_EV).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                   </td>

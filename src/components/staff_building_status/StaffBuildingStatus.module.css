@@ -1,25 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-  --nis-blue:       #003F8A;
-  --nis-blue-mid:   #0062C3;
-  --nis-blue-light: #1A8FE3;
-  --green:  #0F9D58;
-  --amber:  #F4A100;
-  --red:    #E53935;
-  --text-dark:  #0D1F3C;
-  --text-mid:   #445A7A;
-  --text-light: #7A90AD;
-  --border: #D6E4F5;
-  --bg-sky: #F0F7FF;
+  --nis-green:      #80c342;
+  --nis-green-dark: #5a9a28;
+  --nis-green-mid:  #6aaa30;
+  --green-stat:     #2e7d32;
+  --amber:          #E67E00;
+  --red:            #D32F2F;
+  --blue:           #1565C0;
+  --text-dark:      #1a2e0d;
+  --text-mid:       #3d5c1a;
+  --text-light:     #6b8c42;
+  --border:         #c8e6a0;
+  --bg-pale:        #f4fbec;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 10px 12px;
-  gap: 8px;
+  padding: 12px 14px;
+  gap: 9px;
   font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
@@ -28,148 +29,144 @@
 .panelTitle {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--nis-blue);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--nis-green-dark);
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--nis-blue);
+  letter-spacing: 1px;
+  padding-bottom: 9px;
+  border-bottom: 2.5px solid var(--nis-green);
   flex-shrink: 0;
 }
 
 .dot {
-  width: 7px; height: 7px;
+  width: 8px; height: 8px;
   border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 6px rgba(15,157,88,0.6);
+  background: var(--nis-green);
+  box-shadow: 0 0 7px rgba(128,195,66,0.8);
   animation: blink 2s infinite;
 }
-
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* Stat cards 2x2 */
+/* Cards 2×2 */
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
 .card {
-  border-radius: 7px;
-  padding: 7px 10px;
+  border-radius: 8px;
+  padding: 8px 11px;
+  background: var(--bg-pale);
+  border: 1px solid var(--border);
   border-left: 3px solid transparent;
-  background: var(--bg-sky);
 }
 
-/* .cardTotal { border-color: var(--nis-blue-mid); }
-.cardIn    { border-color: var(--green); }
-.cardOut   { border-color: var(--amber); }
-.cardNot   { border-color: var(--red); } */
+/* .cardTotal { border-left-color: var(--blue); }
+.cardIn    { border-left-color: var(--nis-green); }
+.cardOut   { border-left-color: var(--amber); }
+.cardNot   { border-left-color: var(--red); } */
 
 .cardLabel {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--text-light);
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  font-weight: 600;
-  margin-bottom: 1px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-bottom: 2px;
 }
 
 .cardValue {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 22px;
+  font-weight: 900;
+  font-size: 26px;
   line-height: 1;
 }
 
-.cardTotal .cardValue { color: var(--nis-blue-mid); }
-.cardIn .cardValue    { color: var(--green); }
+.cardTotal .cardValue { color: #80c342; }
+.cardIn .cardValue    { color: #80c342; }
 .cardOut .cardValue   { color: var(--amber); }
-.cardNot .cardValue   { color: var(--red); }
+.cardNot .cardValue   { color: #db7575; }
 
 /* Progress */
 .progressWrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   flex-shrink: 0;
 }
 
 .progressBar {
   flex: 1;
-  height: 5px;
-  background: #D6E4F5;
-  border-radius: 5px;
+  height: 6px;
+  background: #dcedc8;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--green), #34d399);
-  border-radius: 5px;
+  background: linear-gradient(90deg, var(--nis-green-dark), var(--nis-green));
+  border-radius: 6px;
   transition: width 1s ease;
 }
 
 .progressLabel {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-light);
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Table */
 .tableWrap {
   flex: 1;
   overflow-y: auto;
-  border-radius: 7px;
+  border-radius: 8px;
   border: 1px solid var(--border);
   scrollbar-width: thin;
-  scrollbar-color: #b8d4f0 transparent;
+  scrollbar-color: #aed581 transparent;
   min-height: 0;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 13px;
 }
 
-.table thead {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-
-.table thead tr { background: var(--nis-blue); }
+.table thead { position: sticky; top: 0; z-index: 2; }
+.table thead tr { background: var(--nis-green); }
 
 .table th {
-  padding: 6px 7px;
+  padding: 7px 8px;
   text-align: left;
   color: #fff;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 9.5px;
+  font-weight: 800;
+  font-size: 10.5px;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
 }
 
 .table td {
-  padding: 4px 7px;
+  padding: 5px 8px;
   color: var(--text-dark);
-  border-bottom: 1px solid #EEF4FB;
+  border-bottom: 1px solid #f1f8e9;
+  font-size: 13px;
 }
 
-.table tbody tr:nth-child(even) { background: #F8FBFF; }
-.table tbody tr:hover { background: #EAF3FF; }
+.table tbody tr:nth-child(even) { background: #f9fef4; }
+.table tbody tr:hover { background: #edf7e0; }
 
-.className { font-weight: 700; color: var(--nis-blue); }
-.tdIn  { color: var(--green) !important; font-weight: 700; }
-.tdNot { color: var(--red)   !important; font-weight: 700; }
-.rowWarn { background: #FFF5F5 !important; }
+.className { font-weight: 800; color: var(--nis-green-dark); font-size: 13px; }
+.tdIn  { color: var(--nis-green-dark) !important; font-weight: 800; }
+.tdNot { color: var(--red) !important; font-weight: 800; }
+.rowWarn { background: #fff5f5 !important; }
 
 .loading, .error {
   display: flex;
@@ -178,16 +175,15 @@
   height: 100%;
   gap: 8px;
   color: var(--text-light);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .spinner {
-  width: 16px; height: 16px;
-  border: 2px solid #D6E4F5;
-  border-top-color: var(--nis-blue-mid);
+  width: 18px; height: 18px;
+  border: 2px solid #dcedc8;
+  border-top-color: var(--nis-green);
   border-radius: 50%;
   animation: spin .8s linear infinite;
   display: inline-block;
 }
-
 @keyframes spin { to { transform: rotate(360deg); } }

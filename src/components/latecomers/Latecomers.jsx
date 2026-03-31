@@ -16,18 +16,18 @@ const fetchLatecomers = async () => {
 };
 
 const houseNames = {
-  Қазығұрт: ["8G", "9F", "8K", "10F"],
-  Атамекен: ["7L", "8N", "10M", "12A"],
-  Ордабасы: ["7K", "8A", "9E", "8B"],
-  Хантағы: ["9A", "9L", "11B", "11A"],
-  Мұзтау: ["7A", "9M", "10C", "11C"],
-  Тұран: ["7B", "9D", "10A", "10K"],
-  Алаш: ["7C", "8C", "8F", "11L", "11K"],
-  Отырар: ["7D", "9B", "9K", "10B"],
-  Оқжетпес: ["7N", "9N", "11N", "11E"],
-  Фараб: ["8L", "8D", "11M", "12K"],
-  Арыстанды: ["7E", "8M", "10D", "11D"],
-  Яссы: ["7M", "8E", "9C", "10L"],
+  Қазығұрт: ["8G","9F","8K","10F"],
+  Атамекен: ["7L","8N","10M","12A"],
+  Ордабасы: ["7K","8A","9E","8B"],
+  Хантағы:  ["9A","9L","11B","11A"],
+  Мұзтау:   ["7A","9M","10C","11C"],
+  Тұран:    ["7B","9D","10A","10K"],
+  Алаш:     ["7C","8C","8F","11L","11K"],
+  Отырар:   ["7D","9B","9K","10B"],
+  Оқжетпес: ["7N","9N","11N","11E"],
+  Фараб:    ["8L","8D","11M","12K"],
+  Арыстанды:["7E","8M","10D","11D"],
+  Яссы:     ["7M","8E","9C","10L"],
 };
 
 const getHouseName = (c) =>
@@ -39,7 +39,7 @@ const Latecomers = () => {
   });
 
   if (isLoading) return <div className={styles.loading}><span className={styles.spinner} /></div>;
-  if (error) return <div className={styles.error}>Ошибка загрузки</div>;
+  if (error)     return <div className={styles.error}>Ошибка загрузки</div>;
 
   const enriched = latecomers
     .map((p) => ({ ...p, HOUSE_NAME: getHouseName(p.CLASS_NAME) }))
@@ -49,66 +49,75 @@ const Latecomers = () => {
   enriched.forEach((p) => { grouped[p.HOUSE_NAME] += p.LATE_COUNT; });
 
   const sorted = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
+  const maxValue = Math.max(...sorted.map(([, v]) => v), 1);
+  const yMax = Math.ceil(maxValue * 1.3);
 
-  const makeColor = (i, alpha) => {
-   
-    return `#80c342`;          // NIS blue rest
-  };
-const maxValue = Math.max(...sorted.map(([, v]) => v));
-
-const yMax = Math.max(10, Math.ceil(maxValue * 1.2));
   const chartData = {
     labels: sorted.map(([k]) => k),
+    // datasets: [{
+    //   data: sorted.map(([, v]) => v),
+    //   backgroundColor: sorted.map((_, i) =>
+    //     i === 0 ? 'rgba(211,47,47,0.82)' :
+    //     i === 1 ? 'rgba(230,126,0,0.78)' :
+    //     'rgba(128,195,66,0.78)'
+    //   ),
+    //   borderColor: sorted.map((_, i) =>
+    //     i === 0 ? '#D32F2F' : i === 1 ? '#E67E00' : '#5a9a28'
+    //   ),
+    //   borderWidth: 1,
+    //   borderRadius: 5,
+    // }],
     datasets: [{
-      data: sorted.map(([, v]) => v),
-      backgroundColor: sorted.map((_, i) => makeColor(i, 0.85)),
-      borderColor: sorted.map((_, i) => makeColor(i, 1)),
-      borderWidth: 1,
-      borderRadius: 4,
-    }],
+  data: sorted.map(([, v]) => v),
+  backgroundColor: 'rgba(128,195,66,0.78)',
+  borderColor: 'rgba(128,195,66,0.78)',
+  borderWidth: 1,
+  borderRadius: 5,
+}],
   };
 
   const options = {
-
     responsive: true,
     maintainAspectRatio: false,
-    layout: {
-      padding: {
-        top: 30,   // 👈 ВОТ ЭТО главное
-      },
-    },
+    layout: { padding: { top: 26 } },
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#003F8A',
+        backgroundColor: '#5a9a28',
         titleColor: '#fff',
         bodyColor: '#fff',
-        borderColor: '#1A8FE3',
+        borderColor: '#80c342',
         borderWidth: 1,
+        titleFont: { family: 'Montserrat', weight: 'bold', size: 13 },
+        bodyFont: { family: 'Inter', size: 13 },
       },
       datalabels: {
         display: true,
-        color: '#4877b4',
+        color: '#1a2e0d',
         font: { weight: 'bold', size: 14, family: 'Montserrat' },
         formatter: (v) => v > 0 ? v : '',
         anchor: 'end',
-        align: 'top',   
-        offset: 4,      
-        clip: false,   
+        align: 'top',
+        offset: 2,
+        clip: false,
       },
     },
     scales: {
-  y: {
-    min: 0,
-    max: yMax, // 👈 динамический потолок
-    grid: { display: false },
-    ticks: { display: false },
-  },
-  x: {
-    grid: { display: false },
-    ticks: { color: '#445A7A', font: { size: 14 }, maxRotation: 35 },
-  },
-},
+      y: {
+        min: 0,
+        max: yMax,
+        grid: { color: '#f1f8e9' },
+        ticks: { display: false },
+      },
+      x: {
+        grid: { display: false },
+        ticks: {
+          color: '#3d5c1a',
+          font: { size: 11, family: 'Montserrat', weight: '600' },
+          maxRotation: 35,
+        },
+      },
+    },
   };
 
   return (

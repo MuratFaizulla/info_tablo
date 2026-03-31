@@ -4,7 +4,7 @@ import EventList from '../components/rows 100/EventList';
 import BirthdaysList from '../components/BirthdaysList/BirthdaysList';
 import Latecomers from '../components/latecomers/Latecomers';
 import styles from './homepage.module.css';
-import LOGO from '../assets/images/lOGO_ZHAPIRAK.png'
+import LOGO from '../assets/images/lOGO_ZHAPIRAK.png';
 
 function HomePage() {
   const [time, setTime] = useState(new Date());
@@ -21,7 +21,7 @@ function HomePage() {
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           <div className={styles.logo}>
-            <img src={LOGO} alt="Логотип"></img>
+            <img src={LOGO} alt="Логотип" />
           </div>
           <div className={styles.headerTitle}>
             <span className={styles.titleMain}>Информационное табло</span>
@@ -35,22 +35,24 @@ function HomePage() {
       </header>
 
       <main className={styles.grid}>
+        {/* LEFT: статистика учеников */}
         <section className={styles.col1}>
           <StaffBuildingStatus />
         </section>
 
+        {/* CENTER: таблица входов/выходов + опоздания */}
         <section className={styles.col2}>
           <div className={styles.col2Top}>
             <EventList />
           </div>
           <div className={styles.col2Bottom}>
-            <div className={styles.col2BottomLeft}>
-              <Latecomers />
-            </div>
-            <div className={styles.col2BottomRight}>
-              <BirthdaysList />
-            </div>
+            <Latecomers />
           </div>
+        </section>
+
+        {/* RIGHT: дни рождения */}
+        <section className={styles.col3}>
+          <BirthdaysList />
         </section>
       </main>
     </div>
