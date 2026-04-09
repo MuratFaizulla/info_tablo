@@ -9,7 +9,7 @@ const fetchData = async () => {
 };
 
 const StaffBuildingStatus = () => {
-  const { data, isLoading, isError, error } = useQuery('staffData', fetchData, { refetchInterval: 2000 });
+  const { data, isLoading, isError, error } = useQuery('staffData', fetchData, { refetchInterval: 10000 });
 
   if (isLoading) return <div className={styles.loading}><span className={styles.spinner} /> Загрузка...</div>;
   if (isError)   return <div className={styles.error}>Ошибка: {error.message}</div>;

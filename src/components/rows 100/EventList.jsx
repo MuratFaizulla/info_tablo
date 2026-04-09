@@ -10,7 +10,7 @@ const fetchEvents = async () => {
 
 const EventList = () => {
   const { data: events, isLoading, isError } = useQuery('eventsData', fetchEvents, {
-    refetchInterval: 2000,
+    refetchInterval: 10000,
   });
 
   return (
