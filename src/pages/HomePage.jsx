@@ -25,7 +25,7 @@ function HomePage() {
           </div>
           <div className={styles.headerTitle}>
             <span className={styles.titleMain}>Информационное табло</span>
-            <span className={styles.titleSub}>Назарбаев Интеллектуальные Школы · Туркестан</span>
+            <span className={styles.titleSub}>Назарбаев Интеллектуальные Школы · Өскемен</span>
           </div>
         </div>
         <div className={styles.headerRight}>
