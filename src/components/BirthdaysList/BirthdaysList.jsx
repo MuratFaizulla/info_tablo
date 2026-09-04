@@ -9,6 +9,31 @@ const fetchBirthdays = async () => {
   return data;
 };
 
+// Фото: в PerCo Өскемена портретов нет, поэтому бэкенд отдаёт ссылку
+// /photo/<ID_STAFF> — там портрет из PerCo, а если его нет, то из HikCentral
+// по ИИН. Если фото нет нигде, ссылка вернёт 404 и покажем первую букву имени.
+const PhotoOrInitial = ({ user }) => {
+  const [failed, setFailed] = React.useState(false);
+  const src = user.PORTRET
+    ? `data:image/jpeg;base64,${user.PORTRET}`
+    : user.PHOTO_URL
+      ? `${process.env.REACT_APP_API_URL}/photo/${user.ID_STAFF}`
+      : null;
+
+  if (!src || failed) {
+    return <div className={styles.avatarPlaceholder}>{user.FULL_FIO ? user.FULL_FIO[0] : '?'}</div>;
+  }
+  return (
+    <img
+      src={src}
+      alt={user.FULL_FIO}
+      className={styles.avatarImg}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
 const calculateAge = (birthDate) => {
   const today = new Date();
   const age = today.getFullYear() - birthDate.getFullYear();
@@ -41,11 +66,7 @@ const BirthdaysList = () => {
           return (
             <div key={user.ID_STAFF || index} className={`${styles.item} ${isToday ? styles.itemToday : ''}`}>
               <div className={styles.avatar}>
-                {user.PORTRET ? (
-                  <img src={`data:image/jpeg;base64,${user.PORTRET}`} alt={user.FULL_FIO} className={styles.avatarImg} />
-                ) : (
-                  <div className={styles.avatarPlaceholder}>{user.FULL_FIO ? user.FULL_FIO[0] : '?'}</div>
-                )}
+                <PhotoOrInitial user={user} />
                 {isToday && <span className={styles.todayBadge}>🎂</span>}
               </div>
 
