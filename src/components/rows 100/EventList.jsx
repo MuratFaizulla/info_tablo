@@ -67,7 +67,10 @@ const EventList = () => {
                 </tr>
               ))
             ) : (
-              !isLoading && <tr><td colSpan="7" className={styles.empty}>Нет данных</td></tr>
+              // Колонок ровно пять. При colSpan больше числа колонок браузер
+              // достраивает недостающие, и таблица вылезает за панель —
+              // с table-layout: fixed это видно сразу, шапка уезжает вправо.
+              !isLoading && <tr><td colSpan="5" className={styles.empty}>Нет данных</td></tr>
             )}
           </tbody>
         </table>
