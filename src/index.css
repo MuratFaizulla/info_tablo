@@ -1,13 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+
+/**
+ * Табло — одна страница во весь экран, и экраны у неё разные: телевизор в
+ * холле, монитор охраны, ноутбук, телефон завуча.
+ *
+ * Раньше все размеры были записаны в пикселях: колонки 350 и 450, блок
+ * шаңырақов ровно 450 в высоту, аватар именинника 80, шрифты от 10 до 26.
+ * Подходило это ровно одному экрану — тому, на котором рисовали. На 1366×768
+ * центральная колонка сжималась в щель, а на 4K табло оставалось пятачком
+ * в углу.
+ *
+ * Поэтому здесь ровно один множитель — размер шрифта корня, — а все размеры
+ * внутри табло выражены в rem. Меняется экран — меняется множитель, и вместе
+ * с ним пропорционально всё сразу: шрифты, отступы, аватары, ширина колонок.
+ * Добавить размер в пикселях в любом файле табло значит вынуть его из этой
+ * связки, и на другом экране он поедет один.
+ *
+ * Множитель считается по МЕНЬШЕЙ стороне относительно эталона 1920×1080:
+ * табло обязано помещаться целиком, без прокрутки, а решает та сторона,
+ * которой не хватает.
+ */
+html {
+  font-size: clamp(8.5px, calc(min(100vw / 1920, 100vh / 1080) * 16), 30px);
+}
+
+/**
+ * Узкий экран — другой разговор. Телефон и планшет в портрете три колонки не
+ * вмещают ни при каком множителе: делить 400 пикселей на три значит сделать
+ * нечитаемым всё. Там табло раскладывается в одну колонку и листается, а
+ * множитель считается от ширины — чтобы текст остался крупным.
+ */
+@media (max-width: 900px), (max-aspect-ratio: 4/5) {
+  html {
+    font-size: clamp(12px, calc(100vw / 420 * 12), 22px);
+  }
+}
+
+/** Палитра и общие меры — одним списком, а не по копии в каждом модуле. */
+:root {
+  --nis-green:      #80c342;
+  --nis-green-dark: #5a9a28;
+  --nis-green-mid:  #6aaa30;
+  --green-stat:     #2e7d32;
+  --green-entry:    #2e7d32;
+  --purple:         #7B1FA2;
+  --amber:          #E67E00;
+  --red:            #D32F2F;
+  --blue:           #1565C0;
+  --text-dark:      #1a2e0d;
+  --text-mid:       #3d5c1a;
+  --text-light:     #6b8c42;
+  --border:         #c8e6a0;
+  --bg-pale:        #f4fbec;
+  --bg-page:        #f4fbec;
+  --bg-white:       #ffffff;
+
+  --header-h:       3.6rem;
+  --radius:         0.62rem;
+  --gap:            0.6rem;
+  --shadow:         0 0.12rem 0.62rem rgba(80,160,40,0.12);
+
+  --font-head:      'Montserrat', sans-serif;
+  --font-body:      'Inter', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-body);
+  background: var(--bg-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

@@ -1,47 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
-
-:root {
-  --nis-green:      #80c342;
-  --nis-green-dark: #5a9a28;
-  --amber:          #E67E00;
-  --text-dark:      #1a2e0d;
-  --text-mid:       #3d5c1a;
-  --text-light:     #6b8c42;
-  --border:         #c8e6a0;
-}
+/* Палитра, шрифты и множитель — в src/index.css. Размеры только в rem. */
 
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 12px 14px;
-  gap: 9px;
-  font-family: 'Inter', sans-serif;
+  padding: 0.75rem 0.85rem;
+  gap: 0.55rem;
+  font-family: var(--font-body);
   overflow: hidden;
+  min-height: 0;
 }
 
 .panelTitle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Montserrat', sans-serif;
+  gap: 0.5rem;
+  font-family: var(--font-head);
   font-weight: 800;
-  font-size: 14px;
+  font-size: 0.88rem;
   color: var(--nis-green-dark);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.06rem;
   flex-shrink: 0;
-  padding-bottom: 9px;
-  border-bottom: 2.5px solid var(--nis-green);
+  padding-bottom: 0.55rem;
+  border-bottom: 0.15rem solid var(--nis-green);
 }
 
 .dot {
-  width: 8px; height: 8px;
+  width: 0.5rem; height: 0.5rem;
   border-radius: 50%;
   background: var(--amber);
-  box-shadow: 0 0 6px rgba(230,126,0,0.6);
+  box-shadow: 0 0 0.38rem rgba(230,126,0,0.6);
+  flex-shrink: 0;
 }
 
+/* Холст диаграммы тянется за блоком; min-height: 0 обязателен, иначе
+   Chart.js разложит его на собственную высоту и блок вырастет за экран. */
 .chartWrap {
   flex: 1;
   min-height: 0;
@@ -53,14 +47,14 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  gap: 8px;
+  gap: 0.5rem;
   color: var(--text-light);
-  font-size: 13px;
+  font-size: 0.82rem;
 }
 
 .spinner {
-  width: 18px; height: 18px;
-  border: 2px solid #dcedc8;
+  width: 1.12rem; height: 1.12rem;
+  border: 0.12rem solid #dcedc8;
   border-top-color: var(--nis-green);
   border-radius: 50%;
   animation: spin .8s linear infinite;

@@ -6,6 +6,7 @@ import {
   Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { useUiScale } from "../../hooks/useUiScale";
 import styles from "./Latecomers.module.css";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
@@ -27,6 +28,8 @@ const Latecomers = () => {
   const { data: houses, isLoading: housesLoading } = useQuery("houses", fetchHouses, {
     refetchInterval: 300000,
   });
+  // До ранних возвратов: порядок хуков менять нельзя.
+  const scale = useUiScale();
 
   if (isLoading || housesLoading) return <div className={styles.loading}><span className={styles.spinner} /></div>;
   if (error) return <div className={styles.error}>Ошибка загрузки</div>;
@@ -76,7 +79,10 @@ const Latecomers = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    layout: { padding: { top: 26 } },
+    // Всё, что дальше задано числом, — доли общего множителя табло, а не
+    // пиксели: canvas не понимает rem, и без этого диаграмма осталась бы
+    // единственным блоком, который не меняется вместе с экраном.
+    layout: { padding: { top: scale * 1.6 } },
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -85,13 +91,13 @@ const Latecomers = () => {
         bodyColor: '#fff',
         borderColor: '#80c342',
         borderWidth: 1,
-        titleFont: { family: 'Montserrat', weight: 'bold', size: 13 },
-        bodyFont: { family: 'Inter', size: 13 },
+        titleFont: { family: 'Montserrat', weight: 'bold', size: scale * 0.82 },
+        bodyFont: { family: 'Inter', size: scale * 0.82 },
       },
       datalabels: {
         display: true,
         color: '#1a2e0d',
-        font: { weight: 'bold', size: 14, family: 'Montserrat' },
+        font: { weight: 'bold', size: scale * 0.88, family: 'Montserrat' },
         formatter: (v) => v > 0 ? v : '',
         anchor: 'end',
         align: 'top',
@@ -110,7 +116,7 @@ const Latecomers = () => {
         grid: { display: false },
         ticks: {
           color: '#3d5c1a',
-          font: { size: 11, family: 'Montserrat', weight: '600' },
+          font: { size: scale * 0.7, family: 'Montserrat', weight: '600' },
           maxRotation: 35,
         },
       },

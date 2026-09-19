@@ -1,89 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
-
-:root {
-  --nis-green:      #80c342;
-  --nis-green-dark: #5a9a28;
-  --nis-green-mid:  #6aaa30;
-  --green-stat:     #2e7d32;
-  --amber:          #E67E00;
-  --red:            #D32F2F;
-  --blue:           #1565C0;
-  --text-dark:      #1a2e0d;
-  --text-mid:       #3d5c1a;
-  --text-light:     #6b8c42;
-  --border:         #c8e6a0;
-  --bg-pale:        #f4fbec;
-}
+/* Палитра, шрифты и множитель — в src/index.css. Размеры только в rem. */
 
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 12px 14px;
-  gap: 9px;
-  font-family: 'Inter', sans-serif;
+  padding: 0.75rem 0.85rem;
+  gap: 0.55rem;
+  font-family: var(--font-body);
   overflow: hidden;
+  min-height: 0;
 }
 
-/* Panel header */
+/* Заголовок панели */
 .panelTitle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Montserrat', sans-serif;
+  gap: 0.5rem;
+  font-family: var(--font-head);
   font-weight: 800;
-  font-size: 13px;
+  font-size: 0.82rem;
   color: var(--nis-green-dark);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-bottom: 9px;
-  border-bottom: 2.5px solid var(--nis-green);
+  letter-spacing: 0.06rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 0.15rem solid var(--nis-green);
   flex-shrink: 0;
 }
 
 .dot {
-  width: 8px; height: 8px;
+  width: 0.5rem; height: 0.5rem;
   border-radius: 50%;
   background: var(--nis-green);
-  box-shadow: 0 0 7px rgba(128,195,66,0.8);
+  box-shadow: 0 0 0.45rem rgba(128,195,66,0.8);
   animation: blink 2s infinite;
+  flex-shrink: 0;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* Cards 2×2 */
+/* Карточки 2×2 */
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 0.38rem;
   flex-shrink: 0;
 }
 
 .card {
-  border-radius: 8px;
-  padding: 8px 11px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.7rem;
   background: var(--bg-pale);
-  border: 1px solid var(--border);
-  border-left: 3px solid transparent;
+  border: 0.06rem solid var(--border);
+  border-left: 0.18rem solid transparent;
+  min-width: 0;
 }
 
-/* .cardTotal { border-left-color: var(--blue); }
-.cardIn    { border-left-color: var(--nis-green); }
-.cardOut   { border-left-color: var(--amber); }
-.cardNot   { border-left-color: var(--red); } */
-
 .cardLabel {
-  font-size: 10px;
+  font-size: 0.62rem;
   color: var(--text-light);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03rem;
   font-weight: 700;
-  margin-bottom: 2px;
+  margin-bottom: 0.12rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cardValue {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-head);
   font-weight: 900;
-  font-size: 26px;
+  font-size: 1.62rem;
   line-height: 1;
 }
 
@@ -92,42 +78,42 @@
 .cardOut .cardValue   { color: var(--amber); }
 .cardNot .cardValue   { color: #db7575; }
 
-/* Progress */
+/* Полоса заполнения */
 .progressWrap {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 0.55rem;
   flex-shrink: 0;
 }
 
 .progressBar {
   flex: 1;
-  height: 6px;
+  height: 0.38rem;
   background: #dcedc8;
-  border-radius: 6px;
+  border-radius: 0.38rem;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
   background: linear-gradient(90deg, var(--nis-green-dark), var(--nis-green));
-  border-radius: 6px;
+  border-radius: 0.38rem;
   transition: width 1s ease;
 }
 
 .progressLabel {
-  font-size: 11px;
+  font-size: 0.68rem;
   color: var(--text-light);
   white-space: nowrap;
   font-weight: 700;
 }
 
-/* Table */
+/* Таблица классов */
 .tableWrap {
   flex: 1;
   overflow-y: auto;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  border: 0.06rem solid var(--border);
   scrollbar-width: thin;
   scrollbar-color: #aed581 transparent;
   min-height: 0;
@@ -136,34 +122,34 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 0.82rem;
 }
 
 .table thead { position: sticky; top: 0; z-index: 2; }
 .table thead tr { background: var(--nis-green); }
 
 .table th {
-  padding: 7px 8px;
+  padding: 0.44rem 0.5rem;
   text-align: left;
   color: #fff;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-head);
   font-weight: 800;
-  font-size: 10.5px;
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03rem;
 }
 
 .table td {
-  padding: 5px 8px;
+  padding: 0.32rem 0.5rem;
   color: var(--text-dark);
-  border-bottom: 1px solid #f1f8e9;
-  font-size: 13px;
+  border-bottom: 0.06rem solid #f1f8e9;
+  font-size: 0.82rem;
 }
 
 .table tbody tr:nth-child(even) { background: #f9fef4; }
 .table tbody tr:hover { background: #edf7e0; }
 
-.className { font-weight: 800; color: var(--nis-green-dark); font-size: 13px; }
+.className { font-weight: 800; color: var(--nis-green-dark); font-size: 0.82rem; }
 .tdIn  { color: var(--nis-green-dark) !important; font-weight: 800; }
 .tdNot { color: var(--red) !important; font-weight: 800; }
 .rowWarn { background: #fff5f5 !important; }
@@ -173,14 +159,14 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  gap: 8px;
+  gap: 0.5rem;
   color: var(--text-light);
-  font-size: 13px;
+  font-size: 0.82rem;
 }
 
 .spinner {
-  width: 18px; height: 18px;
-  border: 2px solid #dcedc8;
+  width: 1.12rem; height: 1.12rem;
+  border: 0.12rem solid #dcedc8;
   border-top-color: var(--nis-green);
   border-radius: 50%;
   animation: spin .8s linear infinite;

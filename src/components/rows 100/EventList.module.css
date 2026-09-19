@@ -1,75 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
-
-:root {
-  --nis-green:      #80c342;
-  --nis-green-dark: #5a9a28;
-  --green-entry:    #2e7d32;
-  --amber:          #E67E00;
-  --red:            #D32F2F;
-  --blue:           #1565C0;
-  --text-dark:      #1a2e0d;
-  --text-mid:       #3d5c1a;
-  --text-light:     #6b8c42;
-  --border:         #c8e6a0;
-}
+/* Палитра, шрифты и множитель — в src/index.css. Размеры только в rem. */
 
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 12px 14px;
-  gap: 9px;
-  font-family: 'Inter', sans-serif;
+  padding: 0.75rem 0.85rem;
+  gap: 0.55rem;
+  font-family: var(--font-body);
   overflow: hidden;
+  min-height: 0;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 9px;
-  border-bottom: 2.5px solid var(--nis-green);
+  gap: 0.5rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 0.15rem solid var(--nis-green);
   flex-shrink: 0;
 }
 
 .panelTitle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Montserrat', sans-serif;
+  gap: 0.5rem;
+  font-family: var(--font-head);
   font-weight: 800;
-  font-size: 13px;
+  font-size: 0.82rem;
   color: var(--nis-green-dark);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.06rem;
 }
 
 .dotLive {
-  width: 8px; height: 8px;
+  width: 0.5rem; height: 0.5rem;
   border-radius: 50%;
   background: var(--red);
-  box-shadow: 0 0 7px rgba(211,47,47,0.7);
+  box-shadow: 0 0 0.45rem rgba(211,47,47,0.7);
   animation: blink 1.2s infinite;
+  flex-shrink: 0;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
 .badge {
-  font-size: 11px;
+  font-size: 0.68rem;
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0;
   color: var(--text-light);
-  background: #f4fbec;
-  border: 1px solid var(--border);
-  padding: 2px 10px;
-  border-radius: 20px;
+  background: var(--bg-pale);
+  border: 0.06rem solid var(--border);
+  padding: 0.12rem 0.62rem;
+  border-radius: 1.25rem;
+  white-space: nowrap;
 }
 
 .tableWrap {
   flex: 1;
   overflow-y: auto;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  border: 0.06rem solid var(--border);
   scrollbar-width: thin;
   scrollbar-color: #aed581 transparent;
   min-height: 0;
@@ -78,97 +69,97 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 0.82rem;
+  table-layout: fixed;
 }
 
 .table thead { position: sticky; top: 0; z-index: 2; }
 .table thead tr { background: var(--nis-green); }
 
 .table th {
-  padding: 8px 11px;
+  padding: 0.5rem 0.7rem;
   text-align: left;
   color: #fff;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-head);
   font-weight: 800;
-  font-size: 11px;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03rem;
   white-space: nowrap;
 }
 
-.thNum { width: 40px; text-align: center; }
+.thNum { width: 2.6rem; text-align: center; }
+
+/* Доли, а не пиксели: при table-layout: fixed браузер иначе делит ширину
+   поровну, и «Подразделение» получает столько же места, сколько «Время». */
+.table th:nth-child(2) { width: 38%; }
+.table th:nth-child(3) { width: 13%; }
+.table th:nth-child(4) { width: 16%; }
 
 .table td {
-  padding: 6px 11px;
+  padding: 0.38rem 0.7rem;
   color: var(--text-dark);
-  border-bottom: 1px solid #f1f8e9;
+  border-bottom: 0.06rem solid #f1f8e9;
   white-space: nowrap;
-  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.82rem;
 }
 
 .table tbody tr:nth-child(even) { background: #f9fef4; }
 .table tbody tr:hover { background: #edf7e0; }
 
-.tdNum  { text-align: center; color: var(--text-light) !important; font-size: 14px; }
-.tdName { font-weight: 600; max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
-.tdId   { font-family: monospace; color: var(--text-light) !important; font-size: 12px; }
+.tdNum  { text-align: center; color: var(--text-light) !important; font-size: 0.88rem; }
+/* Ширины в долях таблицы: колонка ФИО на узком экране обязана ужиматься,
+   а не выталкивать время и событие за край. */
+.tdName { font-weight: 600; }
+.tdId   { font-family: monospace; color: var(--text-light) !important; font-size: 0.75rem; }
 .tdTime {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-head);
   font-weight: 800;
   color: var(--blue) !important;
-  font-size: 13px;
-  letter-spacing: 0.5px;
+  font-size: 0.82rem;
+  letter-spacing: 0.03rem;
 }
-.tdDept {
-  color: var(--text-mid) !important;
-  font-size: 12px;
-  max-width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.tdDept { color: var(--text-mid) !important; font-size: 0.75rem; }
 
-/* Вход зелёный, Выход оранжевый */
-.tagEntry {
+/* Вход зелёный, выход оранжевый */
+.tagEntry, .tagExit {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  background: #e8f5e9;
-  color: var(--green-entry);
-  border: 1px solid #a5d6a7;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
+  gap: 0.2rem;
+  padding: 0.18rem 0.62rem;
+  border-radius: 1.25rem;
+  font-size: 0.75rem;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.tagEntry {
+  background: #e8f5e9;
+  color: var(--green-entry);
+  border: 0.06rem solid #a5d6a7;
 }
 
 .tagExit {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
   background: #fff3e0;
   color: var(--amber);
-  border: 1px solid #ffcc80;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
+  border: 0.06rem solid #ffcc80;
 }
 
 .loading, .error {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  gap: 8px;
+  padding: 2.5rem;
+  gap: 0.5rem;
   color: var(--text-light);
-  font-size: 13px;
+  font-size: 0.82rem;
 }
 
 .spinner {
-  width: 18px; height: 18px;
-  border: 2px solid #dcedc8;
+  width: 1.12rem; height: 1.12rem;
+  border: 0.12rem solid #dcedc8;
   border-top-color: var(--nis-green);
   border-radius: 50%;
   animation: spin .8s linear infinite;
@@ -176,4 +167,4 @@
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.empty { text-align: center; color: var(--text-light); padding: 40px; font-size: 13px; }
+.empty { text-align: center; color: var(--text-light); padding: 2.5rem; font-size: 0.82rem; }
